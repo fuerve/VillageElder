@@ -37,6 +37,7 @@ import org.apache.lucene.util.Version;
  */
 public final class Lucene {
    public static final Version LUCENE_VERSION = Version.LUCENE_42;
+   public static final String DEFAULT_QUERY_FIELD = "Message";
    private static Analyzer analyzer;
 
    /**

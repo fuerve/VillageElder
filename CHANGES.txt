@@ -1,3 +1,7 @@
+Sunday, May 5th, 2013: Added the search support classes.
+---------------------------------------------------
+The low-level search API is implemented and thus the barebones interaction with Lucene is complete.  From here, any changes to indexing and search at the low level will be primarily around schema changes and refactoring.
+
 Wednesday, May 1st, 2013: Added the indexing support classes.
 ---------------------------------------------------
 Village Elder can now index source control revisions.  The interface to Lucene's Document class is clunky, in my opinion, but it's how they implemented their API so that's how I'm handling it until we decide that we need to get more flexible with the index schema.  Faceting is supported as well (and is, in fact, a requirement at this time).

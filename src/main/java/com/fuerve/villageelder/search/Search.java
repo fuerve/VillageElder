@@ -300,7 +300,13 @@ public class Search {
    public TopFieldCollector getCollector() throws IOException {
       if (collector == null) {
          collector =
-               TopFieldCollector.create(sort, DEFAULT_HITS, true, false, false, false);
+               TopFieldCollector.create(
+                     sort,
+                     DEFAULT_HITS,
+                     true,
+                     false,
+                     false,
+                     false);
       }
       return collector;
    }
@@ -320,7 +326,13 @@ public class Search {
    public TopFieldCollector getCollector(final int count) throws IOException {
       if (collector == null) {
          collector =
-               TopFieldCollector.create(sort, count, true, false, false, false);
+               TopFieldCollector.create(
+                     sort,
+                     count,
+                     true,
+                     false,
+                     false,
+                     false);
       }
       return collector;
    }
@@ -341,7 +353,10 @@ public class Search {
          final FacetSearchParams facetSearchParams =
                new FacetSearchParams(facets);
          facetsCollector =
-               FacetsCollector.create(facetSearchParams, indexReader, taxonomyReader);
+               FacetsCollector.create(
+                     facetSearchParams,
+                     indexReader,
+                     taxonomyReader);
       }
       return facetsCollector;
    }

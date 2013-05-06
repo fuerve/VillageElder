@@ -39,9 +39,6 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopFieldCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
-
-import com.fuerve.villageelder.common.Lucene;
 
 /**
  * This class provides an interface for regular and faceted search

@@ -96,7 +96,8 @@ public class Searcher {
     * Performs initialization of the Lucene regular and taxonomy
     * indices by opening the directories and initializing
     * a searcher and taxonomy reader.
-    * @throws IOException
+    * @throws IOException A fatal exception occurred while interacting
+    * with the index directories.
     */
    public void initializeSearch() throws IOException {
       // Don't try to re-initialize an already initialized index.
@@ -326,6 +327,16 @@ public class Searcher {
    }
    
    /**
+    * Gets this Searcher's {@link Search} object.  This will be null
+    * if the search hasn't been initialized using one of the
+    * {@link Searcher#createSearch} methods.
+    * @return This Searcher's {@link Search} instance.
+    */
+   public Search getSearch() {
+      return search;
+   }
+   
+   /**
     * Given a maximum hit count, returns a Collector instance for the current
     * search that can be used with an IndexSearcher to return results from
     * the index.
@@ -436,6 +447,7 @@ public class Searcher {
       if (initialized) {
          indexReader.close();
          taxonomyReader.close();
+         initialized = false;
       }
    }
 }

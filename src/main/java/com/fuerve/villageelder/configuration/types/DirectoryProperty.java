@@ -16,14 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package com.fuerve.villageelder.configuration.types;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+
+import com.fuerve.villageelder.configuration.types.TypedProperty;
+
 /**
- * This package deals with the vagaries of configuration, from digging
- * through properties files to exposing configuration specific to
- * functional areas.  Probably overengineered, but frankly, after
- * years of dealing with properties systems, this is kind of the
- * one that I've always wanted.
+ * This class provides a strongly-typed Lucene {@link Directory}
+ * property, parsed from a string pathname.
  * 
  * @author lparker
  *
  */
-package com.fuerve.villageelder.configuration;
+public class DirectoryProperty extends TypedProperty<Directory> {
+   @Override
+   public Directory parse(String vvalue) {
+      try {
+         Directory directory = FSDirectory.open(new File(vvalue));
+         return directory;
+      } catch (IOException e) {
+         return null;
+      }
+   }
+}

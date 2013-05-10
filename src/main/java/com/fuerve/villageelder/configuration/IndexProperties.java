@@ -16,14 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package com.fuerve.villageelder.configuration;
+
+import java.io.Reader;
+
 /**
- * This package deals with the vagaries of configuration, from digging
- * through properties files to exposing configuration specific to
- * functional areas.  Probably overengineered, but frankly, after
- * years of dealing with properties systems, this is kind of the
- * one that I've always wanted.
+ * This class contains properties specific to the management
+ * and operation of Lucene indices.  Things that might go in
+ * here include index tuning parameters and other things that
+ * are specific to indexing.
  * 
  * @author lparker
  *
  */
-package com.fuerve.villageelder.configuration;
+public class IndexProperties extends PropertyHandler {
+
+   /**
+    * Initializes a new instance of IndexProperties.
+    * @param ppropertySource The {@link Reader} from which
+    * the index properties are to be read.
+    */
+   public IndexProperties(Reader ppropertySource) {
+      super(ppropertySource);
+   }
+}

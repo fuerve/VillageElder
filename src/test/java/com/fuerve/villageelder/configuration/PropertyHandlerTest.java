@@ -63,6 +63,7 @@ public class PropertyHandlerTest {
    }
 
    private class MockStringProperty extends TypedProperty<String> {
+      @SuppressWarnings("unused")
       public MockStringProperty() {
          super();
       }
@@ -78,6 +79,7 @@ public class PropertyHandlerTest {
    }
    
    private class MockIntProperty extends TypedProperty<Integer> {
+      @SuppressWarnings("unused")
       public MockIntProperty() {
          super();
       }

@@ -16,14 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package com.fuerve.villageelder.configuration;
+
+import java.io.Reader;
+
 /**
- * This package deals with the vagaries of configuration, from digging
- * through properties files to exposing configuration specific to
- * functional areas.  Probably overengineered, but frankly, after
- * years of dealing with properties systems, this is kind of the
- * one that I've always wanted.
+ * This class contains properties that are specific to the search
+ * function.  Things that go in here might include Lucene search
+ * tuning parameters or options specific to search.
  * 
  * @author lparker
  *
  */
-package com.fuerve.villageelder.configuration;
+public class SearchProperties extends PropertyHandler {
+
+   /**
+    * Initializes a new instance of SearchProperties.
+    * @param ppropertySource The {@link Reader} from which the search
+    * properties are parsed.
+    */
+   public SearchProperties(Reader ppropertySource) {
+      super(ppropertySource);
+   }
+}

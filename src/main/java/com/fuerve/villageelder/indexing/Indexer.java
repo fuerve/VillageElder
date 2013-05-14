@@ -306,4 +306,31 @@ public class Indexer {
          }
       }
    }
+   
+   /**
+    * Gets the number of documents in the index, not counting
+    * deletions.
+    * @return The number of documents in the index.
+    */
+   public int getMaxDoc() {
+      if (indexManager == null || indexManager.getIndexWriter() == null) {
+         throw new IllegalArgumentException(
+               "Tried to count documents in a null index");
+      } else {
+         return indexManager.getIndexWriter().maxDoc();
+      }
+   }
+   
+   /**
+    * Gets the number of categories in the taxonomy index.
+    * @return The number of categories in the taxonomy index.
+    */
+   public int getTaxonomySize() {
+      if (indexManager == null || indexManager.getTaxonomyWriter() == null) {
+         throw new IllegalArgumentException(
+               "Tried to count categories in a null index");
+      } else {
+         return indexManager.getTaxonomyWriter().getSize();
+      }
+   }
 }

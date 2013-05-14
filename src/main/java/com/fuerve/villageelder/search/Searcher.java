@@ -337,6 +337,23 @@ public class Searcher {
    }
    
    /**
+    * Gets a {@link Collector} instance for the current search that
+    * can be used with an {@link IndexSearcher} to return results from
+    * the index.
+    * @return A {@link Collector} suitable for use with an {@link
+    * IndexSearcher}.
+    * @throws IOException A fatal exception occurred while interacting with
+    * the index.
+    */
+   public TopFieldCollector getCollector() throws IOException {
+      if (search == null) {
+         return null;
+      } else {
+         return search.getCollector();
+      }
+   }
+   
+   /**
     * Given a maximum hit count, returns a Collector instance for the current
     * search that can be used with an IndexSearcher to return results from
     * the index.

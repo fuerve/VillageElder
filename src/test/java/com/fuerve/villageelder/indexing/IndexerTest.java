@@ -242,6 +242,56 @@ public class IndexerTest {
       
       target.dispose();
    }
+   
+   @Test
+   public final void testMaxDoc() throws Exception {
+      RAMDirectory indexDirectory = new RAMDirectory();
+      RAMDirectory taxonomyDirectory = new RAMDirectory();
+      
+      Field iwField = IndexManager.class.getDeclaredField("indexWriter");
+      Field twField = IndexManager.class.getDeclaredField("taxonomyWriter");
+      Field imField = Indexer.class.getDeclaredField("indexManager");
+      
+      iwField.setAccessible(true);
+      twField.setAccessible(true);
+      imField.setAccessible(true);
+      
+      Indexer target = new Indexer(indexDirectory, taxonomyDirectory, OpenMode.CREATE);
+      target.initializeIndex();
+      List<RevisionInfo> revisions = new ArrayList<RevisionInfo>();
+      revisions.add(buildDumbRevisionInfo());
+      revisions.add(buildDumbRevisionInfo());
+      target.indexRevisions(revisions);
+      
+      assertEquals(2, target.getMaxDoc());
+      
+      target.dispose();
+   }
+   
+   @Test
+   public final void testTaxonomySize() throws Exception {
+      RAMDirectory indexDirectory = new RAMDirectory();
+      RAMDirectory taxonomyDirectory = new RAMDirectory();
+      
+      Field iwField = IndexManager.class.getDeclaredField("indexWriter");
+      Field twField = IndexManager.class.getDeclaredField("taxonomyWriter");
+      Field imField = Indexer.class.getDeclaredField("indexManager");
+      
+      iwField.setAccessible(true);
+      twField.setAccessible(true);
+      imField.setAccessible(true);
+      
+      Indexer target = new Indexer(indexDirectory, taxonomyDirectory, OpenMode.CREATE);
+      target.initializeIndex();
+      List<RevisionInfo> revisions = new ArrayList<RevisionInfo>();
+      revisions.add(buildDumbRevisionInfo());
+      revisions.add(buildDumbRevisionInfo());
+      target.indexRevisions(revisions);
+      
+      assertEquals(8, target.getTaxonomySize());
+      
+      target.dispose();
+   }
 
    private RevisionInfo buildDumbRevisionInfo() {
       return new RevisionInfo(DUMB_REVISION_NUMBER, DUMB_REVISION_AUTHOR, DUMB_REVISION_DATE, DUMB_REVISION_MESSAGE);

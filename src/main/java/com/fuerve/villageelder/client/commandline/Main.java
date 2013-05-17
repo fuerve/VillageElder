@@ -33,8 +33,8 @@ public class Main {
     * @param args
     */
    public static void main(String[] args) {
-      Command version = new Version(args);
-      version.execute();
+      Command version = new Version();
+      version.execute(args);
    }
 
 }

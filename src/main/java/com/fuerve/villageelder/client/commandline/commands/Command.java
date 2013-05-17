@@ -30,16 +30,14 @@ import org.apache.commons.cli.Options;
  *
  */
 public abstract class Command {
-   private final String[] args;
    private Options options;
    
    /**
     * Initializes a new instance of Command with
     * a set of arguments.
     */
-   public Command(final String[] aargs) {
+   public Command() {
       options = new Options();
-      args = aargs;
    }
    
    /**
@@ -60,17 +58,6 @@ public abstract class Command {
       }
       options.addOption(name, hasArg, description);
    }
-
-   /**
-    * This method can be used by subclasses to obtain
-    * direct access to the arguments passed in on the
-    * command line.
-    * @return The array of arguments passed in on the
-    * command line.
-    */
-   protected String[] getArgs() {
-      return args;
-   }
    
    /**
     * This method shall be implemented by subclasses to return a
@@ -85,7 +72,7 @@ public abstract class Command {
     * fully containing the execution path.
     * @return A return code.
     */
-   public abstract int execute();
+   public abstract int execute(final String[] args);
    
    /**
     * Prints a usage message to a given output {@link Writer}

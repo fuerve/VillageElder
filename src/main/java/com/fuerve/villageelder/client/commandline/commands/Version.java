@@ -31,8 +31,8 @@ public final class Version extends Command {
     * Initializes a new instance of Version with command line arguments.
     * @param aargs The command line arguments.
     */
-   public Version(String[] aargs) {
-      super(aargs);
+   public Version() {
+      super();
    }
 
    /* (non-Javadoc)
@@ -47,7 +47,7 @@ public final class Version extends Command {
     * @see com.fuerve.villageelder.client.commandline.commands.Command#execute()
     */
    @Override
-   public int execute() {
+   public int execute(final String[] args) {
       System.out.println("Village Elder version " + VersionInfo.getVersion());
       return 0;
    }

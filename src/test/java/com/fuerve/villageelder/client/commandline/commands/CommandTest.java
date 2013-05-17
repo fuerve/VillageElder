@@ -31,22 +31,11 @@ import org.junit.Test;
  */
 public class CommandTest {
    /**
-    * Test method for {@link com.fuerve.villageelder.client.commandline.commands.Command#getArgs()}.
-    */
-   @Test
-   public final void testGetArgs() {
-      Command target = new MockCommand(new String[] { "foo", "bar" });
-      target.addOption("foo", false, "this is a foo option");
-      
-      assertArrayEquals(new String[] { "foo", "bar" }, target.getArgs());
-   }
-
-   /**
     * Test method for {@link com.fuerve.villageelder.client.commandline.commands.Command#getCommandName()}.
     */
    @Test
    public final void testGetCommandName() {
-      Command target = new MockCommand(new String[] { "foo", "bar" });
+      Command target = new MockCommand();
       target.addOption("foo", false, "this is a foo option");
       
       assertEquals("mock-command", target.getCommandName());
@@ -57,11 +46,11 @@ public class CommandTest {
     */
    @Test
    public final void testExecute() {
-      Command target = new MockCommand(new String[] { "foo", "bar" });
+      Command target = new MockCommand();
       
       target.addOption("foo", false, "this is a foo option");
       
-      assertEquals(0, target.execute());
+      assertEquals(0, target.execute(new String[] { "foo", "bar" }));
       assertEquals(true, ((MockCommand)target).executed);
    }
 
@@ -70,7 +59,7 @@ public class CommandTest {
     */
    @Test
    public final void testPrintUsage() {
-      Command target = new MockCommand(new String[] { "foo", "bar" });
+      Command target = new MockCommand();
       StringWriter result = new StringWriter();
       
       target.addOption("foo", false, "this is a foo option");
@@ -86,7 +75,7 @@ public class CommandTest {
     */
    @Test
    public final void testPrintHelp() {
-      Command target = new MockCommand(new String[] { "foo", "bar" });
+      Command target = new MockCommand();
       StringWriter result = new StringWriter();
       String expected = "usage: java -cp VillageElder.jar [-foo]\nheader!\n   -foo     this is a foo option\nfooter!";
       target.addOption("foo", false, "this is a foo option");
@@ -109,8 +98,8 @@ public class CommandTest {
       public boolean executed = false;
       public boolean gotCommandName = false;
       
-      public MockCommand(String[] aargs) {
-         super(aargs);
+      public MockCommand() {
+         super();
       }
 
       @Override
@@ -120,7 +109,7 @@ public class CommandTest {
       }
 
       @Override
-      public int execute() {
+      public int execute(final String[] args) {
          executed = true;
          return 0;
       }

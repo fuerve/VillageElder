@@ -1,3 +1,11 @@
+Thursday, May 16th, 2013: The first of the command line functions has been assembled.
+---------------------------------------------------
+The goo is finally starting to reach critical mass.  The very first of the command line functions (version) is built, and soon more will come that actually do things.
+
+Tuesday, May 14th, 2013: Rounding out the action/result framework (for now).
+---------------------------------------------------
+Adding the SearchAction class and creating a new package for the command line client.  Now, to start auditioning for command line parser libraries.
+
 Monday, May 13th, 2013: Added some of the basic action/result framework.
 ---------------------------------------------------
 This includes concrete implementations for all immediately required results and a couple of the actions.  These can almost be glued together into a cohesive, running unit, although there's still a ways to go before this project is truly shippable.

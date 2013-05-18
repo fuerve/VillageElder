@@ -15,7 +15,7 @@ then
 	echo "Use -? with any of these commands for additional help."
 	echo 
 else
-	java -Dproperties.source=$VILLAGE_ELDER_PROPERTIES_SOURCE -cp .:VillageElder.jar com.fuerve.villageelder.client.commandline.Main $*
+	java -Dproperties.source=$VILLAGE_ELDER_PROPERTIES_SOURCE -cp .:VillageElder.jar:VillageElder_lib/* com.fuerve.villageelder.client.commandline.Main $*
 fi
 
 

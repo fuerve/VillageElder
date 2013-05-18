@@ -18,12 +18,23 @@
  */
 package com.fuerve.villageelder.client.commandline.commands;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
+import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 
+import com.fuerve.villageelder.actions.ActionException;
 import com.fuerve.villageelder.actions.FetchRevisionsAction;
+import com.fuerve.villageelder.actions.IndexAction;
+import com.fuerve.villageelder.actions.results.IndexResult;
 import com.fuerve.villageelder.configuration.PropertyContainer;
+import com.fuerve.villageelder.indexing.Indexer;
+import com.fuerve.villageelder.sourcecontrol.Repository;
+import com.fuerve.villageelder.sourcecontrol.RepositoryFactory;
 import com.fuerve.villageelder.sourcecontrol.RepositoryProviderType;
+import com.fuerve.villageelder.sourcecontrol.RevisionInfo;
 
 /**
  * The 'index' command.
@@ -91,9 +102,92 @@ public class Index extends Command {
       
       // Grobble the logs and create the index.
       //TODO: That.
-      //FetchRevisionsAction fetch = new FetchRevisionsAction();
+      List<RevisionInfo> revisions = fetchRevisionHistory();
       
+      if (revisions == null) {
+         return 1;
+      } else {
+         System.out.println(
+               String.format(
+                     "Revisions: %d", revisions.size()
+               )
+         );
+      }
+      
+      IndexResult indexResult = indexRevisionHistory(revisions);
+      if (indexResult == null) {
+         return 1;
+      } else {
+         System.out.println(
+               String.format(
+                     "Index size: %d\nTaxonomy size: %d",
+                     indexResult.getIndexMaxDoc(),
+                     indexResult.getTaxonomySize()
+               )
+         );
+      }
+
       return 0;
+   }
+   
+   /**
+    * Fetches a set of revision logs from the repository.
+    * @return The list of revision entries.
+    */
+   private List<RevisionInfo> fetchRevisionHistory() {
+      Repository repo =
+            RepositoryFactory.getRepositoryInstance(providerType, repository);
+      FetchRevisionsAction fetch =
+            new FetchRevisionsAction(repo, startRevision, endRevision);
+      List<RevisionInfo> result = null;
+      
+      try {
+         result = fetch.doWork().getValue();
+      } catch (ActionException e) {
+         System.out.println("ERROR: " + e.getMessage());
+         if (e.getCause().getCause() != null) {
+            System.out.println("Cause: " + e.getCause().getCause().getMessage());
+         }
+      }
+      
+      return result;
+   }
+   
+   /**
+    * Creates an index out of a set of revision logs.
+    * @param revisions The revision logs to index.
+    * @return The indexing result.
+    */
+   private IndexResult indexRevisionHistory(List<RevisionInfo> revisions) {
+      Indexer indexer = new Indexer(indexDirectory, taxonomyDirectory, OpenMode.CREATE);
+      try {
+         indexer.initializeIndex();
+      } catch (IOException e) {
+         System.out.println("ERROR: " + e.getMessage());
+         return null;
+      }
+      
+      IndexAction indexAction = new IndexAction(indexer, revisions);
+      IndexResult result = null;
+      
+      try {
+         result = indexAction.doWork();
+         return result;
+      } catch (ActionException e) {
+         System.out.println("ERROR: " + e.getMessage());
+         return null;
+      } finally {
+         try {
+            //TODO: This is an awful lot of gymnastics.
+            // Factor more of this down into the IndexAction
+            // class.  While you're at it, do the same with
+            // FetchRevisionsAction and SearchAction.
+            indexer.dispose();
+         } catch (IOException ex) {
+            System.out.println("ERROR: " + ex.getMessage());
+            return null;
+         }
+      }
    }
    
    /**

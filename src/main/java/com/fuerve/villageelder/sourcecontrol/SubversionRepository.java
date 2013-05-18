@@ -33,6 +33,7 @@ import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.internal.io.svn.SVNRepositoryFactoryImpl;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
@@ -79,11 +80,20 @@ public class SubversionRepository extends Repository {
    private void initializeRepository() throws IOException {
       if (repositoryReference == null) {
          try {
-            SVNRepositoryFactoryImpl.setup();
+            final SVNURL path = SVNURL.parseURIEncoded(getPath());
+            final String protocol = path.getProtocol();
+            
+            if (protocol.startsWith("http")) {
+               DAVRepositoryFactory.setup();
+            } else {
+               SVNRepositoryFactoryImpl.setup();
+            }
+            
             repositoryReference =
                   SVNRepositoryFactory.create(
                         SVNURL.parseURIEncoded(getPath())
                   );
+            
          } catch (SVNException e) {
             throw new IOException("Could not connect to Subversion", e);
          }
@@ -111,7 +121,7 @@ public class SubversionRepository extends Repository {
       Collection<SVNLogEntry> logEntries = null;
       try {
       logEntries = repositoryReference.log(
-            new String[] { getPathFromURI(getPath()) },
+            new String[] { "/" },
             logEntries,
             revision,
             revision,
@@ -147,7 +157,7 @@ public class SubversionRepository extends Repository {
       Collection<SVNLogEntry> logEntries = null;
       try {
       logEntries = repositoryReference.log(
-            new String[] { getPathFromURI(getPath()) },
+            new String[] { "/" },
             logEntries,
             begin,
             end,

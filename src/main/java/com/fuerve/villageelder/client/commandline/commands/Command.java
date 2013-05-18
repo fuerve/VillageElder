@@ -21,8 +21,12 @@ package com.fuerve.villageelder.client.commandline.commands;
 import java.io.PrintWriter;
 import java.io.Writer;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
  * This abstract class is the basis for command line commands.
@@ -57,6 +61,44 @@ public abstract class Command {
          options = new Options();
       }
       options.addOption(name, hasArg, description);
+   }
+   
+   /**
+    * This method may be called by subclasses to aggregate
+    * a set of options for a command.
+    * @param opt The short name of the option.
+    * @param longOpt The long name of the option.
+    * @param hasArg Whether the option has an argument.
+    * @param description The long form description of the
+    * option.
+    */
+   protected void addOption(
+         final String opt,
+         final String longOpt,
+         final boolean hasArg,
+         final String description) {
+      options.addOption(opt, longOpt, hasArg, description);
+   }
+   
+   /**
+    * This method parses the command line and returns the results
+    * in a {@link CommandLine} object.
+    * @param args The arguments to parse.
+    * @return The {@link CommandLine} object containing the set
+    * command line arguments.
+    */
+   protected CommandLine parseCommandLine(final String[] args) {
+      final CommandLineParser parser = new GnuParser();
+      CommandLine result;
+      
+      try {
+         result = parser.parse(options, args);
+      } catch (ParseException e) {
+         printUsage(new PrintWriter(System.out));
+         throw new IllegalArgumentException(e);
+      }
+      
+      return result;
    }
    
    /**
@@ -103,29 +145,9 @@ public abstract class Command {
     * @param writer The writer to which the help message shall be
     * written.
     */
-   public void printHelp(
-         final int printedRowWidth,
-         final String header,
-         final String footer,
-         final int spacesBeforeOption,
-         final int spacesBeforeOptionDescription,
-         final boolean displayUsage,
-         final Writer writer) {
-      final String commandLineSyntax = "java -cp VillageElder.jar";
-      final PrintWriter printWriter = new PrintWriter(writer);
+   public void printHelp(final boolean displayUsage) {
+      final String commandLineSyntax = "java -cp VillageElder.jar " + getCommandName();
       final HelpFormatter formatter = new HelpFormatter();
-      formatter.printHelp(
-            printWriter,
-            printedRowWidth,
-            commandLineSyntax,
-            header,
-            options,
-            spacesBeforeOption,
-            spacesBeforeOptionDescription,
-            footer,
-            displayUsage
-      );
-      
-      printWriter.close();
+      formatter.printHelp(commandLineSyntax, options);
    }
 }

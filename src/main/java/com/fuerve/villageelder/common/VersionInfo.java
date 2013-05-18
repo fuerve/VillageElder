@@ -53,4 +53,48 @@ public final class VersionInfo {
       return VERSION;
    }
    
+   /**
+    * This method gets the major revision number associated with
+    * this build of Village Elder.
+    * @return The major revision number.
+    */
+   public static int getMajorRevision() {
+      return REVISION_MAJOR;
+   }
+   
+   /**
+    * This method gets the minor revision number associated with
+    * this build of Village Elder.
+    * @return The minor revision number.
+    */
+   public static int getMinorRevision() {
+      return REVISION_MINOR;
+   }
+   
+   /**
+    * This method gets the update revision number associated
+    * with this build of Village Elder.
+    * @return The update revision number.
+    */
+   public static int getUpdateRevision() {
+      return REVISION_UPDATE;
+   }
+   
+   /**
+    * This method gets the hotfix revision number associated
+    * with this build of Village Elder.
+    * @return The hotfix revision number.
+    */
+   public static int getHotfixRevision() {
+      return REVISION_HOTFIX;
+   }
+   
+   /**
+    * This method gets the build revision number associated
+    * with this build of Village Elder.
+    * @return The build revision number.
+    */
+   public static int getBuildRevision() {
+      return REVISION_BUILD;
+   }
 }

@@ -18,6 +18,11 @@
  */
 package com.fuerve.villageelder.client.commandline;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.fuerve.villageelder.client.commandline.commands.Command;
 import com.fuerve.villageelder.client.commandline.commands.Version;
 
@@ -28,13 +33,43 @@ import com.fuerve.villageelder.client.commandline.commands.Version;
  *
  */
 public class Main {
-
+   private static final Map<String, Command> commandMap =
+         new HashMap<String, Command>();
+   
    /**
-    * @param args
+    * The entry point into the Village Elder command line utility.
+    * @param args Command line arguments.
     */
    public static void main(String[] args) {
-      Command version = new Version();
-      version.execute(args);
+      setupCommandMap();
+      System.exit(run(args));
+   }
+   
+   /**
+    * The entry point into the Village Elder command line utility.
+    * @param args Command line arguments.
+    */
+   public static int run(String[] args) {
+      if (args.length < 1) {
+         return 1;
+      } else {
+         final String commandName = args[0];
+         final String[] remainingArgs = ArrayUtils.subarray(args, 1, args.length);
+         
+         if (commandMap.containsKey(commandName)) {
+            final Command command = commandMap.get(commandName);
+            command.execute(remainingArgs);
+         }
+         return 0;
+      }
    }
 
+   /**
+    * Sets up the command mappings.  If you want to add
+    * a command to the collection of supported commands,
+    * put it in here.
+    */
+   private static void setupCommandMap() {
+      commandMap.put("version", new Version());
+   }
 }

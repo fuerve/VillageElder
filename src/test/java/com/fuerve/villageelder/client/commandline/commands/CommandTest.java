@@ -20,6 +20,8 @@ package com.fuerve.villageelder.client.commandline.commands;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.io.StringWriter;
 
 import org.junit.Test;
@@ -75,20 +77,14 @@ public class CommandTest {
     */
    @Test
    public final void testPrintHelp() {
+      ByteArrayOutputStream result = new ByteArrayOutputStream();
+      System.setOut(new PrintStream(result));
       Command target = new MockCommand();
-      StringWriter result = new StringWriter();
-      String expected = "usage: java -cp VillageElder.jar [-foo]\nheader!\n   -foo     this is a foo option\nfooter!";
+
+      String expected = "usage: java -cp VillageElder.jar\n -foo   this is a foo option";
       target.addOption("foo", false, "this is a foo option");
 
-      target.printHelp(
-            80,
-            "header!",
-            "footer!",
-            3,
-            5,
-            true,
-            result
-      );
+      target.printHelp(true);
       
       assertEquals(expected, result.toString().trim());
       assertEquals(false, ((MockCommand)target).gotCommandName);

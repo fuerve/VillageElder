@@ -28,6 +28,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.fuerve.villageelder.configuration.PropertyContainer;
+
 /**
  * This abstract class is the basis for command line commands.
  * @author lparker
@@ -35,6 +37,7 @@ import org.apache.commons.cli.ParseException;
  */
 public abstract class Command {
    private Options options;
+   private PropertyContainer propertyContainer;
    
    /**
     * Initializes a new instance of Command with
@@ -99,6 +102,27 @@ public abstract class Command {
       }
       
       return result;
+   }
+   
+   /**
+    * Triggers the loading of the properties file, which
+    * becomes accessible to subclasses via the
+    * {@link Command#getProperties()} method.
+    */
+   protected void loadProperties() {
+      propertyContainer = PropertyContainer.getInstance();
+   }
+   
+   /**
+    * Gets the Village Elder property container.
+    * @return The property container.
+    */
+   protected PropertyContainer getProperties() {
+      if (propertyContainer == null) {
+         loadProperties();
+      }
+      
+      return propertyContainer;
    }
    
    /**

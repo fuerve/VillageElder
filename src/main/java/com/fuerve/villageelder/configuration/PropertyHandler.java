@@ -55,7 +55,7 @@ public abstract class PropertyHandler {
     * an exception will result.
     */
    public PropertyHandler() {
-      this(DEFAULT_PROPERTY_FILE);
+      propertyFilename = DEFAULT_PROPERTY_FILE;
    }
    
    /**
@@ -166,7 +166,8 @@ public abstract class PropertyHandler {
          properties.load(source);
          
          if (propertyMap == null) {
-            throw new IOException("PropertyHandler tried to load unknown properties");
+            // No properties were requested, so there's no need to sweat it.
+            propertyMap = new HashMap<String, TypedProperty<?>>();
          }
          
          for(Entry<Object, Object> property : properties.entrySet()) {

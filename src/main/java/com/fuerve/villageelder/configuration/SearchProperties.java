@@ -29,7 +29,23 @@ import java.io.Reader;
  *
  */
 public class SearchProperties extends PropertyHandler {
-
+   /**
+    * Initializes a new instance of SearchProperties by reading
+    * from the default properties file.
+    */
+   public SearchProperties() {
+      super();
+   }
+   
+   /**
+    * Initializes a new instance of SearchProperties by reading
+    * from a specified file on disk.
+    * @param propertyFilename The pathname of the properties file.
+    */
+   public SearchProperties(final String propertyFilename) {
+      super(propertyFilename);
+   }
+   
    /**
     * Initializes a new instance of SearchProperties.
     * @param ppropertySource The {@link Reader} from which the search

@@ -30,7 +30,23 @@ import java.io.Reader;
  *
  */
 public class IndexProperties extends PropertyHandler {
-
+   /**
+    * Initializes a new instance of IndexProperties by reading
+    * from the default properties file.
+    */
+   public IndexProperties() {
+      super();
+   }
+   
+   /**
+    * Initializes a new instance of IndexProperties by reading
+    * from a specified file on disk.
+    * @param propertyFilename The pathname of the properties file.
+    */
+   public IndexProperties(final String propertyFilename) {
+      super(propertyFilename);
+   }
+   
    /**
     * Initializes a new instance of IndexProperties.
     * @param ppropertySource The {@link Reader} from which

@@ -37,7 +37,7 @@ public class DirectoryProperty extends TypedProperty<Directory> {
    @Override
    public Directory parse(String vvalue) {
       try {
-         Directory directory = FSDirectory.open(new File(vvalue));
+         final Directory directory = FSDirectory.open(new File(vvalue));
          return directory;
       } catch (IOException e) {
          return null;

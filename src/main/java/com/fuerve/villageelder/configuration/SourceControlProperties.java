@@ -20,8 +20,10 @@ package com.fuerve.villageelder.configuration;
 
 import java.io.Reader;
 
+import com.fuerve.villageelder.configuration.types.RepositoryProviderTypeProperty;
 import com.fuerve.villageelder.configuration.types.StringProperty;
 import com.fuerve.villageelder.configuration.types.TypedProperty;
+import com.fuerve.villageelder.sourcecontrol.RepositoryProviderType;
 
 /**
  * This class contains properties that are specific to source control.
@@ -41,6 +43,29 @@ public class SourceControlProperties extends PropertyHandler {
          "SourceControl.SimpleAuthentication.Username";
    private static final String REPOSITORY_SIMPLEAUTHENTICATION_PASSWORD =
          "SourceControl.SimpleAuthentication.Password";
+   private static final String REPOSITORY_PROVIDERTYPE =
+         "SourceControl.ProviderType";
+   
+   /**
+    * Initializes a new instance of SourceControlProperties by reading
+    * from the default properties file.
+    */
+   public SourceControlProperties() {
+      super();
+      
+      requestProperties();
+   }
+   
+   /**
+    * Initializes a new instance of SourceControlProperties by reading
+    * from a specified file on disk.
+    * @param propertyFilename The pathname of the properties file.
+    */
+   public SourceControlProperties(final String propertyFilename) {
+      super(propertyFilename);
+      
+      requestProperties();
+   }
    
    /**
     * Initializes a new instance of SourceControlProperties.
@@ -50,9 +75,14 @@ public class SourceControlProperties extends PropertyHandler {
    public SourceControlProperties(Reader ppropertySource) {
       super(ppropertySource);
       
+      requestProperties();
+   }
+   
+   private void requestProperties() {
       requestProperty(REPOSITORY_PATH, new StringProperty());
       requestProperty(REPOSITORY_SIMPLEAUTHENTICATION_USERNAME, new StringProperty());
       requestProperty(REPOSITORY_SIMPLEAUTHENTICATION_PASSWORD, new StringProperty());
+      requestProperty(REPOSITORY_PROVIDERTYPE, new RepositoryProviderTypeProperty());
    }
    
    /**
@@ -83,6 +113,16 @@ public class SourceControlProperties extends PropertyHandler {
    public String getSimpleAuthenticationPassword() {
       final TypedProperty<String> value =
             get(REPOSITORY_SIMPLEAUTHENTICATION_PASSWORD);
+      return value.getValue();
+   }
+   
+   /**
+    * Gets the repository provider type (ie. Subversion).
+    * @return The repository provider type.
+    */
+   public RepositoryProviderType getProviderType() {
+      final TypedProperty<RepositoryProviderType> value =
+            get(REPOSITORY_PROVIDERTYPE);
       return value.getValue();
    }
 }

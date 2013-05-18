@@ -47,6 +47,27 @@ public class CommonProperties extends PropertyHandler {
    private static final String TAXONOMY_DIRECTORY_PROPERTY = "Common.TaxonomyDirectory";
    
    /**
+    * Initializes a new instance of CommonProperties by reading
+    * from the default properties file.
+    */
+   public CommonProperties() {
+      super();
+      
+      requestProperties();
+   }
+   
+   /**
+    * Initializes a new instance of CommonProperties by reading
+    * from a specified file on disk.
+    * @param propertyFilename The pathname of the properties file.
+    */
+   public CommonProperties(final String propertyFilename) {
+      super(propertyFilename);
+      
+      requestProperties();
+   }
+   
+   /**
     * Initializes a new instance of CommonProperties with a
     * Reader from which the properties can be parsed in common
     * Java properties format.
@@ -56,6 +77,10 @@ public class CommonProperties extends PropertyHandler {
    public CommonProperties(Reader ppropertySource) {
       super(ppropertySource);
       
+      requestProperties();
+   }
+   
+   private void requestProperties() {
       requestProperty(INDEX_DIRECTORY_PROPERTY, new DirectoryProperty());
       requestProperty(TAXONOMY_DIRECTORY_PROPERTY, new DirectoryProperty());
    }

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Load some environment-specific configuration values.
+. env.sh
+
+# Wrap and run
 if [ "$*" == "" ]
 then
 	echo 
@@ -11,7 +15,7 @@ then
 	echo "Use -? with any of these commands for additional help."
 	echo 
 else
-	java -cp .:VillageElder.jar com.fuerve.villageelder.client.commandline.Main $*
+	java -Dproperties.source=$VILLAGE_ELDER_PROPERTIES_SOURCE -cp .:VillageElder.jar com.fuerve.villageelder.client.commandline.Main $*
 fi
 
 

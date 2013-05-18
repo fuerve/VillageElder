@@ -81,13 +81,13 @@ public class CommandTest {
       System.setOut(new PrintStream(result));
       Command target = new MockCommand();
 
-      String expected = "usage: java -cp VillageElder.jar\n -foo   this is a foo option";
+      String expected = "usage: VillageElder.sh mock-command\n -foo   this is a foo option";
       target.addOption("foo", false, "this is a foo option");
 
       target.printHelp(true);
       
       assertEquals(expected, result.toString().trim());
-      assertEquals(false, ((MockCommand)target).gotCommandName);
+      assertEquals(true, ((MockCommand)target).gotCommandName);
    }
    
    class MockCommand extends Command {

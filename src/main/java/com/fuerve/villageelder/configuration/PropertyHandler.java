@@ -18,7 +18,10 @@
  */
 package com.fuerve.villageelder.configuration;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +40,34 @@ import com.fuerve.villageelder.configuration.types.TypedProperty;
  *
  */
 public abstract class PropertyHandler {
+   private static final String DEFAULT_PROPERTY_FILE =
+         "/VillageElder.properties";
+   private String propertyFilename;
+   private boolean propertyFileOnClassPath = true;
    private Reader propertySource;
    private Map<String, TypedProperty<?>> propertyMap;
+   
+   /**
+    * Initializes a new instance of PropertyHandler, which
+    * will load from a default properties file.  This default
+    * properties file should be on the class path and named
+    * VillageElder.properties.  If this file does not exist,
+    * an exception will result.
+    */
+   public PropertyHandler() {
+      this(DEFAULT_PROPERTY_FILE);
+   }
+   
+   /**
+    * Initializes a new instance of PropertyHandler with a
+    * pathname to a properties file.  This pathname should
+    * be absolute.
+    * @param ppropertyFilename The path of the properties file.
+    */
+   public PropertyHandler(final String ppropertyFilename) {
+      propertyFilename = ppropertyFilename;
+      propertyFileOnClassPath = false;
+   }
    
    /**
     * Initializes a new instance of PropertyHandler with a property
@@ -91,6 +120,17 @@ public abstract class PropertyHandler {
     * with the properties stream.
     */
    public void load() throws IOException {
+      if (propertySource == null && propertyFilename != null) {
+         if (propertyFileOnClassPath) {
+            propertySource = new InputStreamReader(
+                  this.getClass().getResourceAsStream(propertyFilename)
+            );
+         } else {
+            propertySource = new FileReader(
+                  new File(propertyFilename)
+            );
+         }
+      }
       PropertyLoader loader = new PropertyLoader(propertySource);
       loader.loadProperties();
    }

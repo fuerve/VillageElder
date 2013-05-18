@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.fuerve.villageelder.client.commandline.commands.Command;
+import com.fuerve.villageelder.client.commandline.commands.Index;
 import com.fuerve.villageelder.client.commandline.commands.Version;
 
 /**
@@ -71,5 +72,6 @@ public class Main {
     */
    private static void setupCommandMap() {
       commandMap.put("version", new Version());
+      commandMap.put("index", new Index());
    }
 }

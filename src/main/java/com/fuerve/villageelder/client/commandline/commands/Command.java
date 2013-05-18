@@ -146,7 +146,7 @@ public abstract class Command {
     * written.
     */
    public void printHelp(final boolean displayUsage) {
-      final String commandLineSyntax = "java -cp VillageElder.jar " + getCommandName();
+      final String commandLineSyntax = "VillageElder.sh " + getCommandName();
       final HelpFormatter formatter = new HelpFormatter();
       formatter.printHelp(commandLineSyntax, options);
    }

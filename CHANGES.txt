@@ -1,3 +1,7 @@
+Saturday, May 18th, 2013: The 'version' and 'index' command-line commands are now feature complete.
+---------------------------------------------------
+Some of the code is kind of gross, but it is now possible to fetch revision history and build an index from the command line.
+
 Thursday, May 16th, 2013: The first of the command line functions has been assembled.
 ---------------------------------------------------
 The goo is finally starting to reach critical mass.  The very first of the command line functions (version) is built, and soon more will come that actually do things.

@@ -2,6 +2,7 @@ bin
 build
 src/main/java/com/fuerve/villageelder/sandbox
 *.class
+target
 
 # Package Files #
 *.jar

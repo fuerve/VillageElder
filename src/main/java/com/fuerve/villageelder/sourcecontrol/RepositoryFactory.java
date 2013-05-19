@@ -18,6 +18,8 @@
  */
 package com.fuerve.villageelder.sourcecontrol;
 
+import com.fuerve.villageelder.sourcecontrol.MockRepository;
+
 /**
  * RepositoryFactory - Factory method container for source control repository
  * connectivity providers.

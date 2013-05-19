@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.fuerve.villageelder</groupId>
   <artifactId>VillageElder</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1.0.0</version>
   <name>Village Elder</name>
   <description>The Village Elder source control repository log search system</description>
   <repositories>

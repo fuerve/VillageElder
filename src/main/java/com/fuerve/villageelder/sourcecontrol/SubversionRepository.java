@@ -19,8 +19,6 @@
 package com.fuerve.villageelder.sourcecontrol;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -178,20 +176,6 @@ public class SubversionRepository extends Repository {
       }
       
       return result;
-   }
-   
-   /**
-    * Gets the path component of an SVN URI.
-    * @param full The full SVN URI.
-    * @return The path portion of the SVN URI.
-    */
-   private String getPathFromURI(final String full) {
-      try {
-         URI uri = new URI(full);
-         return uri.getPath();
-      } catch (URISyntaxException e) {
-         return "/";
-      }
    }
    
    /**

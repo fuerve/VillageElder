@@ -1,3 +1,7 @@
+Sunday, March 9th, 2014: The Maven build is now more-or-less adequate
+---------------------------------------------------
+A few adjustments to get the build working in a way that will allow a user to actually run the command-line tool via 'java -jar'.
+
 Saturday, May 18th, 2013: The 'version' and 'index' command-line commands are now feature complete.
 ---------------------------------------------------
 Some of the code is kind of gross, but it is now possible to fetch revision history and build an index from the command line.

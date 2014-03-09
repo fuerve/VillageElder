@@ -21,21 +21,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/commons-chain-1.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/commons-chain-1.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/commons-chain-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/commons-cli-1.2-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/commons-cli-1.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/commons-cli-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1-sources.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1-tests.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-analyzers-common-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-core-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-facet-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-grouping-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/lucene-queryparser-4.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/svnkit-1.7.9.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
